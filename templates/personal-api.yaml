@@ -23,6 +23,8 @@ spec:
             - containerPort: 8080
               name: port-http
           env:
+            - name: GIN_MODE
+              value: release
             - name: MONGODB
               valueFrom:
                 secretKeyRef:
