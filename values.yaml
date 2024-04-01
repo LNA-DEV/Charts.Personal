@@ -3,3 +3,7 @@ photo:
 
 personalApi:
   version: 11
+
+autoupload:
+  pixelfed:
+    version: 1
