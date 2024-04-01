@@ -22,12 +22,12 @@ spec:
           ports:
             - containerPort: 8080
               name: port-http
-        #   env:
-        #     - name: MONGODB
-        #       valueFrom:
-        #         secretKeyRef:
-        #           name: mongodb-secret
-        #           key: mongodb
+          env:
+            - name: MONGODB
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-personal-api-secret
+                  key: mongodb
 
 ---
 apiVersion: v1
