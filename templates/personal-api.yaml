@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: personal_api
-          image: lnadev/personal-api:{{ .Values.personal-api.version }}
+          image: lnadev/personal-api:{{ .Values.personalApi.version }}
           imagePullPolicy: Always
           resources:
             limits:
