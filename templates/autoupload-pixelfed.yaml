@@ -1,7 +1,7 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: daily-job
+  name: pixelfed-autoupload
 spec:
   schedule: "0 18 * * *"
   jobTemplate:
