@@ -40,10 +40,10 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v1
 
-      # - name: Add Helm repository
-      #   run: |
-      #     helm repo add dockerhub oci://registry-1.docker.io/${{ env.DOCKERHUB_USERNAME }}
+      - name: Add Helm repository
+        run: |
+          helm repo add dockerhub oci://registry-1.docker.io/${{ env.DOCKERHUB_USERNAME }}
 
       - name: Install Helm chart
         run: |
-          helm install charts.personal charts.personal --namespace personal
+          helm install charts.personal dockerhub/charts.personal --namespace personal
