@@ -73,7 +73,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: pubstatic-ingress-http
+  name: personal-api-ingress-http
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
     traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd
