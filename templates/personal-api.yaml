@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: personal-api
+  name: personal_api
 spec:
   selector:
     matchLabels:
-      app: personal-api
+      app: personal_api
   template:
     metadata:
       labels:
-        app: personal-api
+        app: personal_api
     spec:
       containers:
-        - name: personal-api
+        - name: personal_api
           image: lnadev/personal-api:{{ .Values.personal-api.version }}
           imagePullPolicy: Always
           resources:
@@ -33,10 +33,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: personal-api-service
+  name: personal_api-service
 spec:
   selector:
-    app: personal-api
+    app: personal_api
   ports:
     - port: 80
       targetPort: port-http
@@ -46,7 +46,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: personal-api
+  name: personal_api
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
@@ -56,7 +56,7 @@ spec:
     - hosts:
         - "api.lna-dev.net"
         - "www.api.lna-dev.net"
-      secretName: personal-api-cert
+      secretName: personal_api-cert
   rules:
     - host: api.lna-dev.net
       http:
@@ -65,7 +65,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: personal-api-service
+                name: personal_api-service
                 port:
                   number: 80
     - host: www.api.lna-dev.net
@@ -75,7 +75,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: personal-api-service
+                name: personal_api-service
                 port:
                   number: 80
 
@@ -97,7 +97,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: personal-api-service
+                name: personal_api-service
                 port:
                   number: 80
     - host: www.api.lna-dev.net
@@ -107,7 +107,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: personal-api-service
+                name: personal_api-service
                 port:
                   number: 80
 
@@ -115,7 +115,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: redirectscheme-personal-api
+  name: redirectscheme-personal_api
 spec:
   redirectRegex:
     regex: ".*"
