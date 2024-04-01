@@ -3,14 +3,14 @@ kind: CronJob
 metadata:
   name: pixelfed-autoupload
 spec:
-  schedule: "0 18 * * *"
+  schedule: "0 16 * * *"
   jobTemplate:
     spec:
       template:
         spec:
           containers:
             - name: pixelfed-autoupload
-              image: pixelfed-autoupload:{{ .Values.autoupload.pixelfed.version }}
+              image: lnadev/pixelfed-autoupload:{{ .Values.autoupload.pixelfed.version }}
               imagePullPolicy: Always
               resources:
                 limits:
