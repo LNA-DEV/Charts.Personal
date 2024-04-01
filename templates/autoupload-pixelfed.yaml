@@ -20,5 +20,5 @@ spec:
                 - name: PIXELFED_PAT
                   valueFrom:
                     secretKeyRef:
-                    name: pixelfed
-                    key: pat
+                      name: pixelfed
+                      key: pat
