@@ -38,6 +38,5 @@ jobs:
       # Install chart
       - name: Install Helm chart
         run: |
-          helm init
           helm pull oci://registry-1.docker.io/lnadev/charts.personal
-          helm upgrade --install charts.personal oci://registry-1.docker.io/lnadev/charts.personal --namespace personal
+          helm upgrade --install charts.personal oci://registry-1.docker.io/lnadev/charts.personal --namespace personal --kubeconfig ${{ steps.write_file.outputs.filePath }}
