@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  DOCKERHUB_USERNAME: "lnadev"
+  DOCKERHUB_USERNAME: "lnadev/charts.personal"
 
 jobs:
   ReleaseVersion:
