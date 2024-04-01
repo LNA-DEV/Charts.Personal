@@ -89,14 +89,3 @@ spec:
                 name: personal-api-service
                 port:
                   number: 80
-
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: redirectscheme-personal-api
-spec:
-  redirectRegex:
-    regex: ".*"
-    replacement: "https://api.lna-dev.net"
-    permanent: true
