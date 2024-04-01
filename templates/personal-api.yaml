@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: personal-api
+spec:
+  selector:
+    matchLabels:
+      app: personal-api
+  template:
+    metadata:
+      labels:
+        app: personal-api
+    spec:
+      containers:
+        - name: personal-api
+          image: lnadev/personal-api:{{ .Values.personal-api.version }}
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+              name: port-http
+        #   env:
+        #     - name: MONGODB
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: mongodb-secret
+        #           key: mongodb
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: personal-api-service
+spec:
+  selector:
+    app: personal-api
+  ports:
+    - port: 80
+      targetPort: port-http
+      name: http
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: personal-api
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd
+spec:
+  tls:
+    - hosts:
+        - "api.lna-dev.net"
+        - "www.api.lna-dev.net"
+      secretName: personal-api-cert
+  rules:
+    - host: api.lna-dev.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: personal-api-service
+                port:
+                  number: 80
+    - host: www.api.lna-dev.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: personal-api-service
+                port:
+                  number: 80
+
+---
+# Needed because of HTTP to HTTPS redirecting
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pubstatic-ingress-http
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd
+spec:
+  rules:
+    - host: api.lna-dev.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: personal-api-service
+                port:
+                  number: 80
+    - host: www.api.lna-dev.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: personal-api-service
+                port:
+                  number: 80
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirectscheme-personal-api
+spec:
+  redirectRegex:
+    regex: ".*"
+    replacement: "https://api.lna-dev.net"
+    permanent: true

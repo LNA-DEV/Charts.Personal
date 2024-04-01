@@ -1,2 +1,5 @@
 photo:
   version: 33
+
+personal-api:
+  version: 4
