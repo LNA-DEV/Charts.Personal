@@ -35,14 +35,6 @@ jobs:
           fileName: "custom-config"
           encodedString: ${{ secrets.KUBECTL_CONFIG }}
 
-      # Set up Helm
-      - name: Set up Helm
-        uses: azure/setup-helm@v1
-
-      # Initialize Helm
-      - name: Initialize Helm
-        run: helm init --client-only
-
       # Install chart
       - name: Install Helm chart
         run: |
