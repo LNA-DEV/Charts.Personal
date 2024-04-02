@@ -2,8 +2,8 @@ photo:
   version: 36
 
 personalApi:
-  version: 15
+  version: 16
 
 autoupload:
   pixelfed:
-    version: 1
+    version: 2

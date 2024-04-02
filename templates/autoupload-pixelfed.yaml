@@ -22,4 +22,9 @@ spec:
                     secretKeyRef:
                       name: pixelfed
                       key: pat
+                - name: API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: personal-api-secret
+                      key: apikey
           restartPolicy: Never
