@@ -2,7 +2,7 @@ photo:
   version: 36
 
 personalApi:
-  version: 11
+  version: 15
 
 autoupload:
   pixelfed:

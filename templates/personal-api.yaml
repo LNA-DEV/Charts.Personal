@@ -30,6 +30,11 @@ spec:
                 secretKeyRef:
                   name: mongodb-personal-api-secret
                   key: mongodb
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: personal-api-secret
+                  key: apikey
 
 ---
 apiVersion: v1
