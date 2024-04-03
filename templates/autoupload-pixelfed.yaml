@@ -28,3 +28,4 @@ spec:
                       name: personal-api-secret
                       key: apikey
           restartPolicy: Never
+      backoffLimit: 0
