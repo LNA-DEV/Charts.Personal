@@ -13,9 +13,11 @@ spec:
               image: lnadev/pixelfed-autoupload:{{ .Values.autoupload.pixelfed.version }}
               imagePullPolicy: Always
               resources:
+                requests:
+                  cpu: 50m
+                  memory: 100Mi
                 limits:
                   memory: "128Mi"
-                  cpu: "500m"
               env:
                 - name: PIXELFED_PAT
                   valueFrom:

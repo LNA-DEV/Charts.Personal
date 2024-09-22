@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: personal-website-deployment
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: personal-website
@@ -16,13 +17,24 @@ spec:
           image: lnadev/home-page:{{ .Values.homePage.version }}
           imagePullPolicy: Always
           resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
             limits:
               memory: "128Mi"
-              cpu: "500m"
           ports:
             - containerPort: 80
               name: port-http
-
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: personal-website-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: personal-website
 ---
 apiVersion: v1
 kind: Service

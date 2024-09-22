@@ -16,9 +16,11 @@ spec:
           image: lnadev/personal-api:{{ .Values.personalApi.version }}
           imagePullPolicy: Always
           resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
             limits:
               memory: "128Mi"
-              cpu: "500m"
           ports:
             - containerPort: 8080
               name: port-http

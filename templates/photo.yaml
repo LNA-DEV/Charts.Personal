@@ -17,9 +17,11 @@ spec:
           image: lnadev/lna_photo:{{ .Values.photo.version }}
           imagePullPolicy: Always
           resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
             limits:
               memory: "128Mi"
-              cpu: "500m"
           ports:
             - containerPort: 80
               name: port-http
