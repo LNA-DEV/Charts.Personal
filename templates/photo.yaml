@@ -74,6 +74,6 @@ metadata:
   name: redirectscheme-photo-lna
 spec:
   redirectRegex:
-    regex: '^https?://(www\.)?photo\.lna-dev\.net/.*'
+    regex: '.*'
     replacement: 'https://lna-dev.net/en/gallery'
     permanent: true
