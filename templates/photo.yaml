@@ -9,6 +9,7 @@ spec:
   tls:
     - hosts:
         - "photo.lna-dev.net"
+        - "www.photo.lna-dev.net"
       secretName: personal-website-photo-cert
   rules:
     - host: photo.lna-dev.net
