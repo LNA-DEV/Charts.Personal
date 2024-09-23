@@ -1,8 +1,5 @@
 homePage:
-  version: 51
-
-photo:
-  version: 58
+  version: 53
 
 personalApi:
   version: 16

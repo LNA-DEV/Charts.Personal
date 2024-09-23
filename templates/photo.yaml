@@ -1,61 +1,15 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: photo
-  namespace: photo
-spec:
-  selector:
-    matchLabels:
-      app: photo
-  template:
-    metadata:
-      labels:
-        app: photo
-    spec:
-      containers:
-        - name: photo
-          image: lnadev/lna_photo:{{ .Values.photo.version }}
-          imagePullPolicy: Always
-          resources:
-            requests:
-              cpu: 50m
-              memory: 100Mi
-            limits:
-              memory: "128Mi"
-          ports:
-            - containerPort: 80
-              name: port-http
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: photo
-  namespace: photo
-spec:
-  selector:
-    app: photo
-  ports:
-    - port: 80
-      targetPort: port-http
-      name: http
-
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: photo
-  namespace: photo
+  name: photo-website-ingress
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: redirect-photo-lna@kubernetescrd
 spec:
   tls:
     - hosts:
         - "photo.lna-dev.net"
-        - "www.photo.lna-dev.net"
-      secretName: photo
+      secretName: personal-website-photo-cert
   rules:
     - host: photo.lna-dev.net
       http:
@@ -64,7 +18,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: photo
+                name: personal-website-service
                 port:
                   number: 80
     - host: www.photo.lna-dev.net
@@ -74,20 +28,19 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: photo
+                name: personal-website-service
                 port:
                   number: 80
 
 ---
-# Needed because of HTTP to HTTPS redirecting
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: photo-redirection
-  namespace: photo
+  name: photo-website-ingress-http
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: redirect-photo-lna@kubernetescrd
 spec:
   rules:
     - host: photo.lna-dev.net
@@ -97,7 +50,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: photo
+                name: personal-website-service
                 port:
                   number: 80
     - host: www.photo.lna-dev.net
@@ -107,18 +60,18 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: photo
+                name: personal-website-service
                 port:
                   number: 80
 
 ---
+
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: redirectscheme
-  namespace: photo
+  name: redirect-photo-lna
 spec:
   redirectRegex:
-    regex: '^https?://(?:www\.)?(.+)'
-    replacement: "https://${1}"
+    regex: '^(https?)://photo\.lna-dev\.net/(.*)'
+    replacement: 'https://lna-dev.net/en/gallery'
     permanent: true
