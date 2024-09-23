@@ -75,5 +75,5 @@ metadata:
 spec:
   redirectRegex:
     regex: '.*'
-    replacement: 'https://lna-dev.net/en/gallery'
+    replacement: "https://lna-dev.net/en/gallery"
     permanent: true
