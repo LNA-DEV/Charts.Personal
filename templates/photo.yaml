@@ -1,82 +1,82 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: photo-website-ingress-https
-  namespace: {{ .Values.namespace }}
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.middlewares: personal-redirectscheme-photo-lna@kubernetescrd
-spec:
-  tls:
-    - hosts:
-        - "photo.lna-dev.net"
-        - "www.photo.lna-dev.net"
-      secretName: photo
-  rules:
-    - host: photo.lna-dev.net
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: personal-website-service
-                port:
-                  number: 80
-    - host: www.photo.lna-dev.net
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: personal-website-service
-                port:
-                  number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: photo-website-ingress-https
+#   namespace: {{ .Values.namespace }}
+#   annotations:
+#     cert-manager.io/cluster-issuer: letsencrypt
+#     traefik.ingress.kubernetes.io/router.entrypoints: websecure
+#     traefik.ingress.kubernetes.io/router.middlewares: personal-redirectscheme-photo-lna@kubernetescrd
+# spec:
+#   tls:
+#     - hosts:
+#         - "photo.lna-dev.net"
+#         - "www.photo.lna-dev.net"
+#       secretName: photo
+#   rules:
+#     - host: photo.lna-dev.net
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: personal-website-service
+#                 port:
+#                   number: 80
+#     - host: www.photo.lna-dev.net
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: personal-website-service
+#                 port:
+#                   number: 80
 
----
+# ---
 
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: photo-website-ingress-http
-  namespace: {{ .Values.namespace }}
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/router.middlewares: personal-redirectscheme-photo-lna@kubernetescrd
-spec:
-  rules:
-    - host: photo.lna-dev.net
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: personal-website-service
-                port:
-                  number: 80
-    - host: www.photo.lna-dev.net
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: personal-website-service
-                port:
-                  number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: photo-website-ingress-http
+#   namespace: {{ .Values.namespace }}
+#   annotations:
+#     traefik.ingress.kubernetes.io/router.entrypoints: web
+#     traefik.ingress.kubernetes.io/router.middlewares: personal-redirectscheme-photo-lna@kubernetescrd
+# spec:
+#   rules:
+#     - host: photo.lna-dev.net
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: personal-website-service
+#                 port:
+#                   number: 80
+#     - host: www.photo.lna-dev.net
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: personal-website-service
+#                 port:
+#                   number: 80
 
----
+# ---
 
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: redirectscheme-photo-lna
-  namespace: {{ .Values.namespace }}
-spec:
-  redirectRegex:
-    regex: '.*'
-    replacement: "https://lna-dev.net/en/gallery"
-    permanent: true
+# apiVersion: traefik.io/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: redirectscheme-photo-lna
+#   namespace: {{ .Values.namespace }}
+# spec:
+#   redirectRegex:
+#     regex: '.*'
+#     replacement: "https://lna-dev.net/en/gallery"
+#     permanent: true
