@@ -1,5 +1,7 @@
+namespace: personal
+
 homePage:
-  version: 53
+  version: 57
 
 personalApi:
   version: 16
