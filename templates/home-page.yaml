@@ -64,7 +64,7 @@ metadata:
 spec:
   tls:
   - hosts:
-    - 'lna-dev.net'
+      - "lna-dev.net"
     # - 'www.lna-dev.net'
     secretName: personal-website-cert
   rules:
