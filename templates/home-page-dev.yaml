@@ -25,6 +25,47 @@ spec:
           ports:
             - containerPort: 80
               name: port-http
+          volumeMounts:
+            - name: personal-website-storage
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: personal-website-storage
+          persistentVolumeClaim:
+            claimName: personal-website-pvc
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: personal-website-pv
+  namespace: {{ .Values.namespace }}-dev
+spec:
+  capacity:
+    storage: 10Gi 
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: longhorn
+  csi:
+    driver: driver.longhorn.io
+    fsType: ext4
+    volumeHandle: personal-website-volume
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: personal-website-pvc
+  namespace: {{ .Values.namespace }}-dev
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 10Gi
 
 ---
 apiVersion: v1
