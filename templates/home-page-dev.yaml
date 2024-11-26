@@ -36,25 +36,6 @@ spec:
 ---
 
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: personal-website-pv
-  namespace: {{ .Values.namespace }}-dev
-spec:
-  capacity:
-    storage: 10Gi 
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: longhorn
-  csi:
-    driver: driver.longhorn.io
-    fsType: ext4
-    volumeHandle: personal-website-volume
-
----
-
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: personal-website-pvc
