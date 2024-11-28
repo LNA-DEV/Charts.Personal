@@ -31,7 +31,7 @@ spec:
       volumes:
         - name: personal-website-storage
           persistentVolumeClaim:
-            claimName: personal-website-pvc
+            claimName: {{ .Values.homePage.dev.pvcName }}
 
 ---
 apiVersion: v1

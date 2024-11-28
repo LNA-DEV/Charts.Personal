@@ -2,6 +2,8 @@ namespace: personal
 
 homePage:
   version: 57
+  dev:
+    pvcName: ""
 
 personalApi:
   version: 16
