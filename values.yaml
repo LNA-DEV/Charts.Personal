@@ -2,6 +2,7 @@ namespace: personal
 
 homePage:
   version: 57
+  pvcName: ""
   dev:
     pvcName: ""
 

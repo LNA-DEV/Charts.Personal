@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: personal-website
-          image: lnadev/home-page:{{ .Values.homePage.version }}
+          image: nginx
           imagePullPolicy: Always
           resources:
             requests:
@@ -26,6 +26,13 @@ spec:
           ports:
             - containerPort: 80
               name: port-http
+          volumeMounts:
+            - name: personal-website-storage
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: personal-website-storage
+          persistentVolumeClaim:
+            claimName: {{ .Values.homePage.pvcName }}
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
