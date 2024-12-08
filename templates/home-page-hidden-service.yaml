@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tor-service
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tor-service
+  template:
+    metadata:
+      labels:
+        app: tor-service
+    spec:
+      containers:
+        - name: tor
+          image: lnadev/tor-service:3
+          ports:
+            - containerPort: 80
+          env:
+            - name: PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tor-service-secret
+                  key: private-key
+            - name: LISTEN_PORT
+              value: "80"
+            - name: REDIRECT
+              value: "personal-website-service:80"
