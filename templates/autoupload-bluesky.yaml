@@ -4,7 +4,7 @@ metadata:
   name: bluesky-autoupload
   namespace: {{ .Values.namespace }}
 spec:
-  schedule: "45 16 * * *"
+  schedule: "48 16 * * *"
   jobTemplate:
     spec:
       template:
@@ -16,9 +16,9 @@ spec:
               resources:
                 requests:
                   cpu: 50m
-                  memory: 100Mi
+                  memory: 240Mi
                 limits:
-                  memory: "128Mi"
+                  memory: "250Mi"
               env:
                 - name: BLUESKY_PAT
                   valueFrom:
