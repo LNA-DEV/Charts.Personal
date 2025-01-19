@@ -4,7 +4,7 @@ metadata:
   name: bluesky-autoupload
   namespace: {{ .Values.namespace }}
 spec:
-  schedule: "52 16 * * *"
+  schedule: "00 16 * * *"
   jobTemplate:
     spec:
       template:
