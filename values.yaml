@@ -7,7 +7,7 @@ homePage:
     pvcName: ""
 
 personalApi:
-  version: 16
+  version: 17
 
 autoupload:
   pixelfed:
