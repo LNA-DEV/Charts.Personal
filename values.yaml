@@ -11,6 +11,6 @@ personalApi:
 
 autoupload:
   pixelfed:
-    version: 9
+    version: 10
   bluesky:
-    version: 9
+    version: 10
